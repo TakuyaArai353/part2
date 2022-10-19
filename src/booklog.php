@@ -6,6 +6,8 @@ $situation = '';
 $score = '';
 $impression = '';
 
+$reviews = [];
+
 while (true) {
 
     echo '1. 読書ログを登録' . PHP_EOL;
@@ -28,6 +30,16 @@ while (true) {
         $score =  trim(fgets(STDIN));
         echo '感想：';
         $impression =  trim(fgets(STDIN));
+
+        $reviews[] = [
+
+            'title' => $title,
+            'author' => $author,
+            'situation' => $situation,
+            'score' => $score,
+            'impression' => $impression,
+        ];
+
         echo '登録が完了しました' . PHP_EOL . PHP_EOL;
     } elseif ($num === '2') {
         // 読書ログを表示する

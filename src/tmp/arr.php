@@ -1,8 +1,13 @@
 <?php
-$comics = ['火の鳥', 'ガラスの仮面'];
+// 連想配列
+$user = [
+    'name' => 'kume',
+    'sex' => 'male',
+    // '' => '',
+];
 
-$comics[] = 'BANANA FISH';
+$user['age'] = 20;
 
-var_export($comics);
+// var_export($user);
 
-echo $comics[2] . PHP_EOL;
+echo $user['name'] . PHP_EOL;
