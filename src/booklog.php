@@ -32,7 +32,6 @@ while (true) {
         $impression =  trim(fgets(STDIN));
 
         $reviews[] = [
-
             'title' => $title,
             'author' => $author,
             'situation' => $situation,
@@ -43,12 +42,17 @@ while (true) {
         echo '登録が完了しました' . PHP_EOL . PHP_EOL;
     } elseif ($num === '2') {
         // 読書ログを表示する
-        echo '読書ログを表示します' . PHP_EOL;
-        echo '書籍名：' . $title . PHP_EOL;
-        echo '著者名：' . $author . PHP_EOL;
-        echo '読書状況：' . $situation . PHP_EOL;
-        echo '評価：' . $score . PHP_EOL;
-        echo '感想：' . $impression . PHP_EOL;
+        foreach ($reviews as $review) {
+            echo '読書ログを表示します' . PHP_EOL;
+            echo '書籍名：' . $review['title'] . PHP_EOL;
+            echo '著者名：' . $review['author'] . PHP_EOL;
+            echo '読書状況：' . $review['situation'] . PHP_EOL;
+            echo '評価：' . $review['score'] . PHP_EOL;
+            echo '感想：' . $review['impression'] . PHP_EOL;
+            echo '----------------' . PHP_EOL;
+        }
+
+
     } elseif ($num === '9') {
         // アプリケーションを終了する
         break;
