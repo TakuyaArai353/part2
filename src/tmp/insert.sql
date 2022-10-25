@@ -1,4 +1,4 @@
-INSERT INTO companies (
+/* INSERT INTO companies (
     name,
     establishment_date,
     founder
@@ -25,4 +25,32 @@ INSERT INTO companies (
     'yumemi inc',
     'sadfe',
     'Tosiyuki Kataoka'
+); */
+
+INSERT INTO reviews (
+    title,
+    author,
+    situation,
+    score,
+    impression
+) VALUES (
+    'Slowdown',
+    'Danny Dorling',
+    'unread',
+    5,
+    'I love this.'
+);
+
+INSERT INTO reviews (
+    title,
+    author,
+    situation,
+    score,
+    impression
+) VALUES (
+    'Momo',
+    'Michael Ende',
+    'complete',
+    5,
+    'I love this book since I was little.'
 );
