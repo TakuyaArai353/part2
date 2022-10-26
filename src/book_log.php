@@ -15,7 +15,7 @@ function dbConnect()
     return $link;
 }
 
-function createReview()
+function createReview($link)
 {
     echo '読書ログを登録してください' . PHP_EOL;
     echo '書籍名：';
@@ -29,15 +29,30 @@ function createReview()
     echo '感想：';
     $impression =  trim(fgets(STDIN));
 
-    echo '登録が完了しました' . PHP_EOL . PHP_EOL;
+    $sql = <<<EOT
+    INSERT INTO reviews (
+        title,
+        author,
+        situation,
+        score,
+        impression
+    ) VALUES (
+        "{$title}",
+        "{$author}",
+        "{$situation}",
+        $score,
+        "{$impression}"
+    )
+    EOT;
 
-    return [
-        'title' => $title,
-        'author' => $author,
-        'situation' => $situation,
-        'score' => $score,
-        'impression' => $impression,
-    ];
+    $result = mysqli_query($link, $sql);
+
+    if ($result) {
+        echo '登録が完了しました' . PHP_EOL . PHP_EOL;
+    } else {
+        echo 'Error: データの登録に失敗しました' . PHP_EOL;
+        echo 'Debugging error: ' . mysqli_error($link) . PHP_EOL;
+    }
 }
 
 function displayReviews($reviews)
@@ -69,7 +84,8 @@ while (true) {
 
     if ($num === '1') {
         // 読書ログを登録する
-        $reviews[] = createReview();
+        // $reviews[] = createReview();
+        createReview($link);
     } elseif ($num === '2') {
         // 読書ログを表示する
         displayReviews($reviews);
