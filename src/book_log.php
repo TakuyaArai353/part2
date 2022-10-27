@@ -1,5 +1,4 @@
 <?php
-
 function dbConnect()
 {
     $link = mysqli_connect('db', 'book_log', 'pass', 'book_log');
@@ -15,19 +14,27 @@ function dbConnect()
     return $link;
 }
 
+function validate($reviews)
+{
+
+}
+
 function createReview($link)
 {
+    $reviews = [];
     echo '読書ログを登録してください' . PHP_EOL;
     echo '書籍名：';
-    $title =  trim(fgets(STDIN));
+    $reviews['title'] =  trim(fgets(STDIN));
     echo '著者名：';
-    $author =  trim(fgets(STDIN));
+    $reviews['author'] =  trim(fgets(STDIN));
     echo '読書状況：';
-    $situation =  trim(fgets(STDIN));
+    $reviews['situation'] =  trim(fgets(STDIN));
     echo '評価：';
-    $score =  trim(fgets(STDIN));
+    $reviews['score'] =  trim(fgets(STDIN));
     echo '感想：';
-    $impression =  trim(fgets(STDIN));
+    $reviews['impression'] =  trim(fgets(STDIN));
+
+    $validated = validate($reviews);
 
     $sql = <<<EOT
     INSERT INTO reviews (
@@ -37,11 +44,11 @@ function createReview($link)
         score,
         impression
     ) VALUES (
-        "{$title}",
-        "{$author}",
-        "{$situation}",
-        $score,
-        "{$impression}"
+        "{$reviews['title']}",
+        "{$reviews['author']}",
+        "{$reviews['situation']}",
+        "{$reviews['score']}",
+        "{$reviews['impression']}"
     )
     EOT;
 
