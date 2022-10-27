@@ -16,7 +16,16 @@ function dbConnect()
 
 function validate($reviews)
 {
+    $errors = [];
 
+    // 書籍名が正しく入力されているかチェック
+    if (!mb_strlen($reviews['title'])) {
+        $errors['title'] = '書籍名を入力してください';
+    } elseif (mb_strlen($reviews['title']) > 255) {
+        $errors['title'] = '書籍名は２５５文字いないで入力してください';
+    }
+
+    return $errors;
 }
 
 function createReview($link)
@@ -35,6 +44,12 @@ function createReview($link)
     $reviews['impression'] =  trim(fgets(STDIN));
 
     $validated = validate($reviews);
+    if (count($validated) > 0) {
+        foreach ($validated as $error) {
+            echo $error . PHP_EOL;
+        }
+        return;
+    }
 
     $sql = <<<EOT
     INSERT INTO reviews (
