@@ -14,15 +14,22 @@ function dbConnect()
     return $link;
 }
 
-function validate($reviews)
+function validate($review)
 {
     $errors = [];
 
     // 書籍名が正しく入力されているかチェック
-    if (!mb_strlen($reviews['title'])) {
+    if (!mb_strlen($review['title'])) {
         $errors['title'] = '書籍名を入力してください';
-    } elseif (mb_strlen($reviews['title']) > 255) {
+    } elseif (mb_strlen($review['title']) > 255) {
         $errors['title'] = '書籍名は２５５文字いないで入力してください';
+    }
+
+    // 評価（５点満点の整数）が正しく入力されているかチェック
+    if (!mb_strlen($review['score'])) {
+        $errors['score'] = '評価を入力してください';
+    } else if ($review['score'] > 5 || $review['score'] < 1) {
+        $errors['score'] = ' 評価は１～５の整数を入力してください';
     }
 
     return $errors;
@@ -30,20 +37,20 @@ function validate($reviews)
 
 function createReview($link)
 {
-    $reviews = [];
+    $review = [];
     echo '読書ログを登録してください' . PHP_EOL;
     echo '書籍名：';
-    $reviews['title'] =  trim(fgets(STDIN));
+    $review['title'] =  trim(fgets(STDIN));
     echo '著者名：';
-    $reviews['author'] =  trim(fgets(STDIN));
+    $review['author'] =  trim(fgets(STDIN));
     echo '読書状況：';
-    $reviews['situation'] =  trim(fgets(STDIN));
+    $review['situation'] =  trim(fgets(STDIN));
     echo '評価：';
-    $reviews['score'] =  trim(fgets(STDIN));
+    $review['score'] = (int) trim(fgets(STDIN));
     echo '感想：';
-    $reviews['impression'] =  trim(fgets(STDIN));
+    $review['impression'] =  trim(fgets(STDIN));
 
-    $validated = validate($reviews);
+    $validated = validate($review);
     if (count($validated) > 0) {
         foreach ($validated as $error) {
             echo $error . PHP_EOL;
@@ -59,11 +66,11 @@ function createReview($link)
         score,
         impression
     ) VALUES (
-        "{$reviews['title']}",
-        "{$reviews['author']}",
-        "{$reviews['situation']}",
-        "{$reviews['score']}",
-        "{$reviews['impression']}"
+        "{$review['title']}",
+        "{$review['author']}",
+        "{$review['situation']}",
+        "{$review['score']}",
+        "{$review['impression']}"
     )
     EOT;
 
