@@ -22,7 +22,19 @@ function validate($review)
     if (!mb_strlen($review['title'])) {
         $errors['title'] = '書籍名を入力してください';
     } elseif (mb_strlen($review['title']) > 255) {
-        $errors['title'] = '書籍名は２５５文字いないで入力してください';
+        $errors['title'] = '書籍名は２５５文字以内で入力してください';
+    }
+
+    // 著者名が正しく入力されているかチェック
+    if (!mb_strlen($review['author'])) {
+        $errors['author'] = '著者名を入力してください';
+    } elseif (mb_strlen($review['author']) > 100) {
+        $errors['author'] = '著者名は１００文字以内で入力してください';
+    }
+
+    // 読書状況が正しく入力されているかチェック
+    if (!in_array($review['situation'], ['未読', '読中', '読了'])) {
+        $errors['situation'] = '読書状況には「未読」「読中」「読了」のいずれかを入力してください';
     }
 
     // 評価（５点満点の整数）が正しく入力されているかチェック
@@ -30,6 +42,13 @@ function validate($review)
         $errors['score'] = '評価を入力してください';
     } else if ($review['score'] > 5 || $review['score'] < 1) {
         $errors['score'] = ' 評価は１～５の整数を入力してください';
+    }
+
+    // 感想が正しく入力されているかチェック
+    if (!mb_strlen($review['impression'])) {
+        $errors['impression'] = '感想を入力してください';
+    } elseif (mb_strlen($review['impression']) > 1000) {
+        $errors['impression'] = '感想は１０００文字以内で入力してください';
     }
 
     return $errors;
@@ -110,10 +129,8 @@ while (true) {
     echo '番号を選択してください（1,2,9）:';
     $num = trim(fgets(STDIN));
 
-
     if ($num === '1') {
         // 読書ログを登録する
-        // $reviews[] = createReview();
         createReview($link);
     } elseif ($num === '2') {
         // 読書ログを表示する
