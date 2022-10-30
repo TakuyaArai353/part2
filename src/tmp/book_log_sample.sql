@@ -1,0 +1,9 @@
+CREATE TABLE reviews (
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
+    author VARCHAR(100),
+    situation VARCHAR(10),
+    score INTEGER,
+    impression VARCHAR(1000),
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) DEFAULT CHARACTER SET=utf8mb4;
