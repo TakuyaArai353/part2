@@ -37,4 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_close($link);
 }
 
+header("Location: index.php");
+
 ?>
