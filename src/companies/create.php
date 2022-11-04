@@ -17,8 +17,9 @@ function createCompany($link, $company)
     EOT;
     $result = mysqli_query($link, $sql);
 
-    if ($result) {
-        echo '登録が完了しました' . PHP_EOL;
+    if (!$result) {
+        error_log('Error: fail to create company');
+        error_log('Debugging Error: ' . mysqli_error($link));
     }
 }
 
