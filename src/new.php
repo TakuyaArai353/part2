@@ -12,7 +12,7 @@
     <h1>読書ログ</h1>
     <h2>読書ログの登録</h2>
 
-    <form action="" method="POST">
+    <form action="create.php" method="POST">
         <div>
             <label for="title">書籍名</label>
             <input type="text" id="title" name="title">
@@ -21,12 +21,6 @@
             <label for="author">著者名</label>
             <input type="author" id="author" name="author">
         </div>
-        <!-- <div>
-            <label for="situation">読書状況</label>
-            <input type="radio" id="situation" name="situation" value="未読">未読
-            <input type="radio" id="situation" name="situation" value="読中">読中
-            <input type="radio" id="situation" name="situation" value="読了">読了
-        </div> -->
         <div>
             <label>読書状況</label>
             <div>
